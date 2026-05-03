@@ -14,6 +14,7 @@ find_package(Qt6 COMPONENTS
     Network 
     Sql 
     Concurrent
+    Core5Compat
     REQUIRED
 )
 
@@ -33,6 +34,14 @@ set(SOURCES
     src/subscriptionmanager.cpp
     src/effectsmanager.h
     src/effectsmanager.cpp
+    src/imagemanager.h
+    src/imagemanager.cpp
+    src/colorgradingmanager.h
+    src/colorgradingmanager.cpp
+    src/titlesmanager.h
+    src/titlesmanager.cpp
+    src/audiomanager.h
+    src/audiomanager.cpp
     src/exportmanager.h
     src/exportmanager.cpp
     src/database.h

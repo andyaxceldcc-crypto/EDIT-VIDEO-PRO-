@@ -13,6 +13,10 @@ SOURCES += \
     src/paymentmanager.cpp \
     src/subscriptionmanager.cpp \
     src/effectsmanager.cpp \
+    src/imagemanager.cpp \
+    src/colorgradingmanager.cpp \
+    src/titlesmanager.cpp \
+    src/audiomanager.cpp \
     src/exportmanager.cpp \
     src/database.cpp
 
@@ -23,6 +27,10 @@ HEADERS += \
     src/paymentmanager.h \
     src/subscriptionmanager.h \
     src/effectsmanager.h \
+    src/imagemanager.h \
+    src/colorgradingmanager.h \
+    src/titlesmanager.h \
+    src/audiomanager.h \
     src/exportmanager.h \
     src/database.h
 
