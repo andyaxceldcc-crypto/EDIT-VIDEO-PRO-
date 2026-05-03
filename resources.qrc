@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RCC>
+    <qresource prefix="/icons">
+        <file>app_icon.png</file>
+        <file>play_icon.png</file>
+        <file>pause_icon.png</file>
+        <file>export_icon.png</file>
+        <file>import_icon.png</file>
+    </qresource>
+    <qresource prefix="/styles">
+        <file>dark_theme.qss</file>
+    </qresource>
+</RCC>
