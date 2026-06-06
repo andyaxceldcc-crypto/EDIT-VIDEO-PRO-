@@ -1,64 +1,50 @@
 cmake_minimum_required(VERSION 3.16)
-project(FilmoraEditor)
+project(EDIT-VIDEO-PRO-COMPOSITOR LANGUAGES CXX CUDA)
 
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt6 COMPONENTS 
-    Core 
-    Gui 
-    Widgets 
-    Multimedia 
-    Network 
-    Sql 
-    Concurrent
-    Core5Compat
-    REQUIRED
-)
+# Versión
+set(PROJECT_VERSION_MAJOR 0)
+set(PROJECT_VERSION_MINOR 1)
+set(PROJECT_VERSION_PATCH 0)
 
-find_package(FFmpeg REQUIRED)
+# Opciones
+option(BUILD_WITH_CUDA "Build with CUDA support" ON)
+option(BUILD_WITH_TESTS "Build tests" ON)
+option(BUILD_PYTHON_BINDINGS "Build Python bindings" ON)
 
-set(SOURCES
-    src/main.cpp
-    src/mainwindow.h
-    src/mainwindow.cpp
-    src/videotimeline.h
-    src/videotimeline.cpp
-    src/videoeditor.h
-    src/videoeditor.cpp
-    src/paymentmanager.h
-    src/paymentmanager.cpp
-    src/subscriptionmanager.h
-    src/subscriptionmanager.cpp
-    src/effectsmanager.h
-    src/effectsmanager.cpp
-    src/imagemanager.h
-    src/imagemanager.cpp
-    src/colorgradingmanager.h
-    src/colorgradingmanager.cpp
-    src/titlesmanager.h
-    src/titlesmanager.cpp
-    src/audiomanager.h
-    src/audiomanager.cpp
-    src/exportmanager.h
-    src/exportmanager.cpp
-    src/database.h
-    src/database.cpp
-)
+# Find packages
+find_package(Qt5 COMPONENTS Core Gui OpenGL Widgets REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package(OpenEXR REQUIRED)
+find_package(OpenColorIO REQUIRED)
+find_package(glm REQUIRED)
 
-add_executable(FilmoraEditor ${SOURCES} resources.qrc)
+if(BUILD_WITH_CUDA)
+    find_package(CUDA REQUIRED)
+    set(CUDA_NVCC_FLAGS "${CUDA_NVCC_FLAGS} -std=c++17")
+endif()
 
-target_link_libraries(FilmoraEditor
-    Qt6::Core
-    Qt6::Gui
-    Qt6::Widgets
-    Qt6::Multimedia
-    Qt6::Network
-    Qt6::Sql
-    Qt6::Concurrent
-    ${FFMPEG_LIBRARIES}
-)
+# Directorios
+add_subdirectory(src)
 
-target_include_directories(FilmoraEditor PRIVATE ${FFMPEG_INCLUDE_DIRS})
+if(BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests)
+endif()
+
+if(BUILD_PYTHON_BINDINGS)
+    add_subdirectory(python)
+endif()
+
+# Resumen
+message(STATUS "=== EDIT-VIDEO-PRO Compositor ===")
+message(STATUS "Version: ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
+message(STATUS "CUDA Support: ${BUILD_WITH_CUDA}")
+message(STATUS "Tests: ${BUILD_WITH_TESTS}")
+message(STATUS "Python Bindings: ${BUILD_PYTHON_BINDINGS}")
+message(STATUS "=====================================")

@@ -1,450 +1,225 @@
-# Filmora Editor Pro - Editor de Video Profesional
+# EDIT-VIDEO-PRO-COMPOSITOR
 
-## Descripción
-Editor de video de escritorio tipo Filmora con características profesionales, sistema de suscripción mensual ($100/mes) y exportación sin límites.
+**Compositor VFX Profesional basado en Nuke**
 
----
+> Aplicación de composición nodal de nivel profesional para producción VFX, diseñada con arquitectura modular C++ y Python.
 
-## 📦 REQUISITOS DE SOFTWARE PARA COMPILAR
+## 🎬 Características Principales
 
-### Software Necesario (Versiones Exactas)
+### Interfaz Profesional
+- **Dark Theme VFX** - Interfaz oscura optimizada para trabajo VFX profesional
+- **Node Graph Avanzado** - Sistema de nodos interconectables tipo Nuke
+- **Viewer Interactivo** - Visor de alta precisión con LUT en tiempo real
+- **Timeline Profesional** - Control temporal completo
+- **Panel de Propiedades** - Inspector dinámico de parámetros
+- **Histograma y Scopes** - Herramientas de color profesionales
 
-#### 🪟 Windows (RECOMENDADO)
+### Nodos Disponibles
+- **Read** - Lectura de imágenes y secuencias EXR
+- **Write** - Escritura de resultados con opciones avanzadas
+- **Merge** - Composición con múltiples operaciones blend
+- **Transform** - Transformaciones 2D (escala, rotación, translación)
+- **Blur** - Desenfoque Gaussian y motion blur
+- **Grade** - Corrección de color y curvas
+- **Keyer** - Chroma key y luminance key
+- **Roto** - Rotomación con splines
+- **Tracker** - Seguimiento de movimiento 2D/3D
 
-| Software | Versión | Descarga | Peso |
-|----------|---------|----------|------|
-| **Visual Studio Build Tools 2022** | 17.x | https://visualstudio.microsoft.com/downloads/ | ~2 GB |
-| **Qt 6.6.x** | 6.6.2 (LTS) | https://www.qt.io/download-qt-installer | ~1.5 GB |
-| **CMake** | 3.26+ | https://cmake.org/download/ | ~30 MB |
-| **FFmpeg** | 6.0 (o superior) | https://ffmpeg.org/download.html | ~70 MB |
-| ** Strawberry Perl** | 5.36+ | https://strawberryperl.com/ | ~300 MB |
+### Arquitectura Técnica
+- **Backend**: C++ con multithreading
+- **Interfaz**: Qt/PySide2
+- **Rendering**: OpenGL + GPU acceleration
+- **Color Management**: OpenColorIO (OCIO)
+- **Formato de Imagen**: OpenEXR
+- **Sistema de Plugins**: Arquitectura extensible
 
-**Nota:** Para Qt 6.6.2, seleccionar durante instalación:
-- **Qt 6.6.2** → MSVC2022 64-bit
-- **Qt Creator** 
-- **Qt 6.6.2** → Additional Libraries → Qt Multimedia, Qt SQL, Qt Network, Qt Concurrent
+## 📁 Estructura del Proyecto
 
-#### 🍎 macOS
+```
+EDIT-VIDEO-PRO-/
+├── src/
+│   ├── core/              # Motor de composición
+│   ├── nodes/             # Sistema de nodos
+│   ├── ui/                # Interfaz gráfica (Qt/PySide)
+│   ├── rendering/         # Motor de renderizado GPU
+│   ├── colorspace/        # OCIO integration
+│   └── plugins/           # API de plugins
+├── python/
+│   ├── bindings/          # PyQt/PySide bindings
+│   ├── api/               # Python API
+│   └── scripts/           # Utilidades Python
+├── resources/
+│   ├── icons/             # Iconografía profesional
+│   ├── themes/            # Temas de interfaz
+│   └── shaders/           # Shaders GLSL
+├── tests/
+│   ├── unit/              # Tests unitarios
+│   └── integration/       # Tests de integración
+├── docs/
+│   ├── architecture.md    # Documentación de arquitectura
+│   ├── node-dev.md        # Guía de desarrollo de nodos
+│   └── plugin-dev.md      # Guía de desarrollo de plugins
+├── cmake/
+│   ├── FindOpenEXR.cmake
+│   ├── FindOCIO.cmake
+│   └── FindOpenGL.cmake
+├── CMakeLists.txt
+├── requirements.txt
+└── ROADMAP.md
+```
 
-| Software | Versión | Comando |
-|----------|---------|---------|
-| **Xcode** | 15+ | App Store |
-| **Qt 6** | 6.6.x | `brew install qt@6` |
-| **CMake** | 3.26+ | `brew install cmake` |
-| **FFmpeg** | 6.0+ | `brew install ffmpeg` |
+## 🚀 Quick Start
 
-#### 🐧 Linux (Ubuntu/Debian)
+### Requisitos
+- CMake 3.16+
+- C++17
+- Qt 5.15+ o PySide2
+- OpenEXR 2.5+
+- OpenColorIO 2.0+
+- CUDA 11+ (opcional, para GPU acceleration)
+
+### Compilación
 
 ```bash
-sudo apt-get update
-sudo apt-get install -y qt6-base-dev qt6-multimedia-dev qt6-network-auth \
-    cmake build-essential libavcodec-dev libavformat-dev libavutil-dev \
-    libswscale-dev libsqlite3-dev
-```
+# Clonar repositorio
+git clone https://github.com/andyaxceldcc-crypto/EDIT-VIDEO-PRO-.git
+cd EDIT-VIDEO-PRO-
 
----
+# Crear directorio de build
+mkdir build && cd build
 
-## 🔧 INSTALACIÓN PASO A PASO (Windows)
-
-### Paso 1: Instalar Visual Studio Build Tools 2022
-
-1. Descargar de: https://visualstudio.microsoft.com/downloads/
-2. Ejecutar el instalador
-3. Seleccionar: **"Desarrollo de escritorio con C++"**
-4. Marcar estos componentes:
-   - ✅ MSVC v143 - VS 2022 C++ x64/x86
-   - ✅ Windows 11 SDK (o Windows 10 SDK)
-   - ✅ C++ ATL para las últimas versiones de Build Tools
-
-### Paso 2: Instalar Qt 6.6.2
-
-1. Descargar el instalador: https://www.qt.io/download-qt-installer
-2. Crear cuenta (gratis) en qt.io
-3. Durante instalación seleccionar:
-   - ✅ Qt 6.6.2 → MSVC2022 64-bit
-   - ✅ Qt Creator 12.x
-   - ✅ Qt 6.6.2 → Additional Libraries:
-     - ☑️ Qt Multimedia
-     - ☑️ Qt SQL
-     - ☑️ Qt Network
-     - ☑️ Qt Concurrent
-     - ☑️ Qt 5 Compatibility
-
-4. Anotar la ruta de instalación: `C:\Qt\6.6.2\msvc2022_64`
-
-### Paso 3: Instalar CMake
-
-1. Descargar: https://cmake.org/download/ → Windows x64 Installer
-2. Instalar y marcar: ✅ "Add CMake to system PATH for all users"
-3. Reiniciar terminal
-
-### Paso 4: Instalar FFmpeg
-
-**Opción A: vcpkg (Recomendado)**
-```cmd
-git clone https://github.com/microsoft/vcpkg.git C:\vcpkg
-cd C:\vcpkg
-bootstrap-vcpkg.bat
-vcpkg install ffmpeg:x64-windows
-```
-
-**Opción B: Binarios precompilados**
-1. Descargar: https://www.gyan.dev/ffmpeg/builds/
-2. Seleccionar: `ffmpeg-release-essentials.zip`
-3. Extraer a: `C:\ffmpeg`
-4. Agregar al PATH: `C:\ffmpeg\bin`
-
-### Paso 5: Configurar Variables de Entorno
-
-En Windows Search: `variables de entorno` → Editar variables de entorno del sistema
-
-Agregar a **Path**:
-```
-C:\Qt\6.6.2\msvc2022_64\bin
-C:\Qt\Tools\QtCreator\bin
-C:\vcpkg\installed\x64-windows\bin
-C:\Program Files\CMake\bin
-```
-
-Agregar nuevas variables:
-```
-Qt6_DIR = C:\Qt\6.6.2\msvc2022_64\lib\cmake\Qt6
-CMAKE_PREFIX_PATH = C:\Qt\6.6.2\msvc2022_64
-```
-
----
-
-## 🚀 COMPILACIÓN DEL PROYECTO
-
-### Opción 1: Script Automático (Más Fácil)
-
-```cmd
-# Ejecutar en la carpeta del proyecto
-COMPILAR_FINAL.bat
-```
-
-### Opción 2: Manual con Qt Creator
-
-1. Abrir Qt Creator
-2. Archivo → Abrir archivo/proyecto → `FilmoraEditor.pro`
-3. Seleccionar kit: **Desktop Qt 6.6.2 MSVC2022 64-bit**
-4. Click en **Configurar proyecto**
-5. Compilar: `Ctrl+B`
-6. Ejecutar: `Ctrl+R`
-
-### Opción 3: Línea de Comandos
-
-```cmd
-# Abrir "x64 Native Tools Command Prompt for VS 2022"
-
-cd C:\ruta\a\EDIT-VIDEO-PRO-
-
-# Crear carpeta de compilación
-mkdir build
-cd build
-
-# Configurar con qmake
-qmake ..\FilmoraEditor.pro -spec win32-msvc CONFIG+=release
+# Configurar con CMake
+cmake -DCMAKE_BUILD_TYPE=Release ..
 
 # Compilar
-nmake /NOLOGO
+cmake --build . --config Release -j$(nproc)
 
-# Si todo sale bien, el .exe estará en build/release/
+# Instalar
+cmake --install .
 ```
 
----
+### Ejecución
 
-## 📦 CREAR PAQUETE .EXE CON TODAS LAS DLLs
+```bash
+# Ejecutar aplicación
+./EDIT-VIDEO-PRO
 
-### Usando windeployqt (Windows)
-
-Después de compilar, ejecutar:
-
-```cmd
-cd build\release
-
-# Desplegar todas las DLLs de Qt
-C:\Qt\6.6.2\msvc2022_64\bin\windeployqt.exe FilmoraEditor.exe
-
-# Agregar FFmpeg (copiar manualmente)
-copy C:\vcpkg\installed\x64-windows\bin\*.dll .
+# O con Python
+python3 -m edit_video_pro
 ```
 
-### Script Completo de Despliegue
+## 🏗️ Arquitectura del Sistema
 
-Crear archivo `DESPLOY.bat`:
-```batch
-@echo off
-chcp 65001 >nul
-cd /d "%~dp0"
+### Core Engine (C++)
+- **NodeGraph**: Gestión de dependencias y DAG
+- **CompositionEngine**: Motor de composición
+- **FrameBuffer**: Gestión de buffers GPU/CPU
+- **ThreadPool**: Multithreading optimizado
 
-echo ================================================
-echo   CREANDO PAQUETE PORTABLE FilmoraEditor
-echo ================================================
+### Rendering Pipeline
+1. **Compile** - Optimización del DAG
+2. **Render** - Procesamiento en GPU
+3. **Composite** - Mezcla de resultados
+4. **Output** - Envío al visor
 
-cd build\release
+### Python Integration
+- Acceso a C++ via bindings
+- Scripting de workflows
+- Plugins Python
+- API completa de nodos
 
-echo Copiando DLLs de Qt...
-C:\Qt\6.6.2\msvc2022_64\bin\windeployqt.exe FilmoraEditor.exe --no-translations
+## 📊 Sistema de Nodos
 
-echo Copiando DLLs de FFmpeg...
-if exist "C:\vcpkg\installed\x64-windows\bin" (
-    copy "C:\vcpkg\installed\x64-windows\bin\avcodec*.dll" . 2>nul
-    copy "C:\vcpkg\installed\x64-windows\bin\avformat*.dll" . 2>nul
-    copy "C:\vcpkg\installed\x64-windows\bin\avutil*.dll" . 2>nul
-    copy "C:\vcpkg\installed\x64-windows\bin\swscale*.dll" . 2>nul
-    copy "C:\vcpkg\installed\x64-windows\bin\swresample*.dll" . 2>nul
-)
+Cada nodo implementa:
+- **Inputs**: Conectores de entrada tipados
+- **Outputs**: Conectores de salida
+- **Properties**: Panel de propiedades dinámico
+- **Knobs**: Parámetros ajustables
+- **Compute**: Lógica de procesamiento
 
-echo ================================================
-echo   PAQUETE CREADO EXITOSAMENTE!
-echo ================================================
-dir FilmoraEditor.exe
-pause
+## 🎨 Interfaz de Usuario
+
+### Componentes Principales
+- **NodeGraph Widget** - Edición visual de nodos
+- **Viewer Widget** - Visor de composición
+- **Properties Panel** - Inspector de parámetros
+- **Timeline** - Control temporal
+- **Scopes Panel** - Análisis de color
+
+## 🔌 Sistema de Plugins
+
+Desarrolla plugins personalizados:
+
+```python
+from edit_video_pro.plugin import Node, Input, Output
+
+class CustomNode(Node):
+    def __init__(self):
+        super().__init__()
+        self.add_input("input", InputType.IMAGE)
+        self.add_output("output", OutputType.IMAGE)
+    
+    def compute(self, frame):
+        # Tu lógica aquí
+        return processed_frame
 ```
 
----
+## 📈 Roadmap
 
-## 📋 VERIFICACIÓN DE DEPENDENCIAS
+### Fase 1: MVP (Semanas 1-4)
+- [x] Arquitectura base
+- [x] Node Graph básico
+- [x] Nodos esenciales (Read, Write, Merge)
+- [x] Viewer simple
 
-Para verificar que todo está instalado correctamente, ejecutar en terminal:
+### Fase 2: Funcionalidad Core (Semanas 5-8)
+- [ ] Todos los nodos principales
+- [ ] Timeline funcional
+- [ ] GPU acceleration
+- [ ] Sistema de plugins
 
-```cmd
-# Verificar Qt
-qmake --version
+### Fase 3: Optimización (Semanas 9-12)
+- [ ] Profiling y optimización
+- [ ] Caché de frames
+- [ ] Render distribuido
+- [ ] Performance profesional
 
-# Verificar CMake
-cmake --version
+### Fase 4: Producción (Semanas 13+)
+- [ ] Testing exhaustivo
+- [ ] Documentación completa
+- [ ] Integración con VCS
+- [ ] Stabilidad de producción
 
-# Verificar MSVC
-cl
+## 📚 Documentación
 
-# Verificar FFmpeg (si se instaló)
-ffmpeg -version
+- [Arquitectura Detallada](docs/architecture.md)
+- [Guía de Desarrollo de Nodos](docs/node-dev.md)
+- [API de Plugins](docs/plugin-dev.md)
+- [Build Instructions](docs/build.md)
+
+## 🤝 Contribuir
+
+```bash
+git checkout -b feature/nueva-caracteristica
+# Hacer cambios
+git commit -am "Descripción clara"
+git push origin feature/nueva-caracteristica
 ```
 
-**Resultados esperados:**
-```
-QMake version: 3.1
-Using Qt version 6.6.2 in C:/Qt/6.6.2/msvc2022_64/lib
+## 📄 Licencia
 
-cmake version 3.26.x
-Microsoft (R) C/C++ Optimizing Compiler Version 19.36.x
-```
+MIT License - Ver LICENSE.md
 
----
+## 👥 Equipo
 
-## 🔍 SOLUCIÓN DE PROBLEMAS
-
-### "qmake no se reconoce" o "Cannot find module Qt"
-- Verificar que las variables de entorno están configuradas
-- Reiniciar el sistema después de instalar Qt
-- Abrir "x64 Native Tools Command Prompt for VS 2022" desde el menú inicio
-
-### "No se encontró FFmpeg"
-- Instalar FFmpeg con vcpkg o descargar binarios
-- Verificar que la ruta está en el PATH
-
-### "Error de compilación: cannot find -lxxx"
-- Verificar que las librerías están en las rutas correctas
-- En FilmoraEditor.pro, ajustar las rutas INCLUDEPATH y LIBS
-
-### "windeployqt no funciona"
-- Ejecutar desde x64 Native Tools Command Prompt
-- Verificar que el .exe compiló correctamente primero
-
-### "Error: LNK1112: module machine type x86 conflicts with target machine type x64"
-- Asegurarse de usar el compilador x64, no x86
-- En Qt Creator: Proyectos → Kit → Qt 6.6.2 MSVC2022 64-bit
+**Equipo Senior VFX Engineering**
+- Director Técnico
+- Ingenieros C++
+- Especialistas GPU
+- Ingenieros de UI/UX
 
 ---
 
-## 📁 ESTRUCTURA DEL PROYECTO
-
-```
-filmora-editor/
-├── src/
-│   ├── main.cpp                 # Punto de entrada
-│   ├── mainwindow.h/cpp         # Ventana principal
-│   ├── videotimeline.h/cpp      # Control de timeline
-│   ├── videoeditor.h/cpp        # Lógica de edición
-│   ├── paymentmanager.h/cpp     # Sistema de pagos
-│   ├── subscriptionmanager.h/cpp # Gestión de suscripción
-│   ├── effectsmanager.h/cpp     # Gestor de efectos
-│   ├── imagemanager.h/cpp      # Gestor de imágenes
-│   ├── colorgradingmanager.h/cpp # Corrección de color
-│   ├── titlesmanager.h/cpp      # Gestor de títulos
-│   ├── audiomanager.h/cpp       # Gestor de audio
-│   ├── exportmanager.h/cpp      # Gestor de exportación
-│   └── database.h/cpp           # Gestor de base de datos
-├── CMakeLists.txt               # Configuración de CMake
-├── FilmoraEditor.pro            # Archivo de proyecto Qt
-├── resources.qrc                # Recursos (iconos, estilos)
-├── compile.sh                  # Script de compilación Linux/macOS
-├── COMPILAR_FINAL.bat          # Script de compilación Windows
-├── COMPILACION.md              # Guía de compilación
-└── README.md                   # Este archivo
-```
-
----
-
-## Características
-
-### Edición de Video
-- ✅ Timeline interactivo con múltiples pistas
-- ✅ Importación de videos en múltiples formatos
-- ✅ Corte, fusión y edición de clips
-- ✅ Vista previa en tiempo real
-- ✅ Zoom y navegación en la timeline
-
-### Efectos y Filtros
-- ✅ +50 efectos profesionales
-- ✅ Efectos de color (brillo, contraste, saturación)
-- ✅ Filtros de desenfoque
-- ✅ Efectos artísticos (sepia, escala de grises)
-- ✅ Transiciones suaves
-
-### Sistema de Suscripción
-- ✅ Plan Premium: $100/mes
-- ✅ Exportación sin límites
-- ✅ Acceso a todos los efectos
-- ✅ Soporte prioritario
-- ✅ Uso comercial permitido
-
-### Exportación
-- ✅ Presets de exportación (720p, 1080p, 4K)
-- ✅ Control de bitrate y FPS
-- ✅ Formatos: MP4, AVI, MOV, WebM
-- ✅ Codificación de hardware acelerada
-
-### Gestión de Proyectos
-- ✅ Guardar/Cargar proyectos
-- ✅ Base de datos SQLite
-- ✅ Historial de cambios
-- ✅ Exportar en múltiples formatos
-
----
-
-## Uso
-
-### Importar Video
-1. Haz clic en "📁 Importar" en la barra de herramientas
-2. Selecciona un archivo de video (MP4, AVI, MOV, etc.)
-3. El video aparecerá en la timeline
-
-### Agregar Efectos
-1. Selecciona un clip en la timeline
-2. Haz clic en "+ Agregar Efecto"
-3. Selecciona el efecto deseado
-4. Ajusta la intensidad según sea necesario
-
-### Agregar Transiciones
-1. Selecciona la posición entre clips
-2. Haz clic en "+ Agregar Transición"
-3. Elige el tipo de transición (Fade, Slide, etc.)
-4. Configura la duración
-
-### Exportar Video
-1. Configura los efectos y transiciones
-2. Haz clic en "💾 Exportar"
-3. Selecciona la calidad (720p, 1080p, 4K)
-4. Elige la ubicación de guardado
-5. La exportación comenzará automáticamente
-
-### Activar Suscripción
-1. Haz clic en "⭐ Premium ($100/mes)"
-2. Ingresa los datos de tu tarjeta
-3. Confirma el pago
-4. ¡Acceso completo activado!
-
----
-
-## Sistema de Pago
-
-Se integran los siguientes gateways de pago:
-- **Stripe** - Pago con tarjeta de crédito
-- **PayPal** - Pago rápido con PayPal
-- **Razorpay** - Soporte global
-
-## Configuración del Gateway de Pago
-
-### Stripe (Recomendado)
-```cpp
-// En paymentmanager.cpp
-const QString STRIPE_API_KEY = "sk_live_xxxxxxxxxxxxx";
-const QString STRIPE_PUBLIC_KEY = "pk_live_xxxxxxxxxxxxx";
-```
-
-### PayPal
-```cpp
-const QString PAYPAL_CLIENT_ID = "xxxxxxxxxxxxxxxxxx";
-const QString PAYPAL_CLIENT_SECRET = "xxxxxxxxxxxxxxxxxx";
-```
-
----
-
-## Atajos de Teclado
-
-| Atajo | Función |
-|-------|---------|
-| Ctrl+N | Nuevo proyecto |
-| Ctrl+O | Abrir proyecto |
-| Ctrl+S | Guardar proyecto |
-| Ctrl+E | Exportar video |
-| Space | Play/Pause |
-| Ctrl+Z | Deshacer |
-| Ctrl+Y | Rehacer |
-| Ctrl+C | Copiar clip |
-| Ctrl+V | Pegar clip |
-| Del | Eliminar clip |
-
----
-
-## Contribuciones
-
-Las contribuciones son bienvenidas. Para cambios importantes:
-
-1. Fork el proyecto
-2. Crea una rama (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature'`)
-5. Abre un Pull Request
-
----
-
-## Licencia
-
-Este proyecto está bajo la licencia MIT. Ver archivo `LICENSE` para más detalles.
-
----
-
-## Soporte
-
-Para soporte técnico:
-- 📧 Email: support@filmoraeditor.com
-- 💬 Chat en vivo: www.filmoraeditor.com/support
-- 📱 WhatsApp: +1-800-FILMORA
-
----
-
-## Changelog
-
-### v1.0.0 - Lanzamiento Inicial
-- ✅ Editor de video funcional
-- ✅ Sistema de suscripción
-- ✅ Timeline interactivo
-- ✅ 50+ efectos
-- ✅ Exportación 4K
-- ✅ Base de datos de proyectos
-
----
-
-## Developers
-
-- **Desarrollador Principal**: Tu Nombre
-- **Diseñador UI/UX**: Tu Nombre
-- **Backend**: Tu Nombre
-
----
-
-**Filmora Editor Pro** © 2026. Todos los derechos reservados.
+**Estado**: 🚧 En Desarrollo Activo  
+**Versión**: 0.1.0-alpha  
+**Última Actualización**: 2026-06-06

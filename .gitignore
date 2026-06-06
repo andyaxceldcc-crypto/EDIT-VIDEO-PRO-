@@ -1,0 +1,46 @@
+# Build
+build/
+*.cmake
+CMakeCache.txt
+CMakeFiles/
+
+# IDE
+.vscode/
+.idea/
+*.sln
+*.vcxproj*
+*.user
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Media
+*.exr
+*.dpx
+*.mov
+*.mp4
+
+# Projects
+*.evp
+*.backup
+
+# Dependencies
+install/
+deps/
+vendor/
+
+# Output
+*.log
+*.tmp
