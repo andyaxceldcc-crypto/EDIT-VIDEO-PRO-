@@ -46,6 +46,13 @@ set(SOURCES
     src/exportmanager.cpp
     src/database.h
     src/database.cpp
+    # Core node-based system
+    core/src/connection.cpp
+    core/src/node.cpp
+    core/src/node_graph.cpp
+    core/src/nodes/readnode.cpp
+    core/src/nodes/blur_effect.cpp
+    core/src/nodes/writenode.cpp
 )
 
 add_executable(FilmoraEditor ${SOURCES} resources.qrc)
@@ -61,4 +68,4 @@ target_link_libraries(FilmoraEditor
     ${FFMPEG_LIBRARIES}
 )
 
-target_include_directories(FilmoraEditor PRIVATE ${FFMPEG_INCLUDE_DIRS})
+target_include_directories(FilmoraEditor PRIVATE ${FFMPEG_INCLUDE_DIRS} core/src)

@@ -12,7 +12,7 @@ class Connection;
 /**
  * @class Node
  * @brief Clase base para todos los nodos del sistema node-based
- * Similar a Foundry Nuke y Mari
+ * Similar a Foundry Nuke
  */
 class Node {
 public:
